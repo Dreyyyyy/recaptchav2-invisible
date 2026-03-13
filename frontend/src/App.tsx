@@ -13,8 +13,25 @@ function App() {
     console.log('Form submitted, siteKey:', siteKey)
   }
 
-  (window as any).onRecaptchaSuccess = (token: string) => {
+  (window as any).onSubmit = async (token: string) => {
     console.log('Recaptcha success, token:', token)
+
+    const res = await fetch('http://localhost:3000/api/verify-recaptcha', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    })
+    
+    const data = await res.json()
+    console.log('Recaptcha verification response:', data)
+
+    if (data.success) {
+      console.log('Recaptcha verification successful')
+    } else {
+      console.log('Recaptcha verification failed')
+    }
   };
 
 

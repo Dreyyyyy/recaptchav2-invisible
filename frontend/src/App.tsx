@@ -6,6 +6,17 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    console.log('Form submitted, siteKey:', siteKey)
+  }
+
+  (window as any).onRecaptchaSuccess = (token: string) => {
+    console.log('Recaptcha success, token:', token)
+  };
+
 
   return (
     <>
@@ -28,6 +39,15 @@ function App() {
           Count is {count}
         </button>
       </section>
+
+      <form className="recaptcha-container" onSubmit={handleSubmit}>
+        <button 
+        type="submit"
+        className="g-recaptcha"
+        data-sitekey={siteKey}
+        data-callback="onSubmit"
+        >Submit</button>
+      </form>
 
       <div className="ticks"></div>
 

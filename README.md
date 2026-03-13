@@ -1,4 +1,4 @@
-# recaptchav2-invisible
+# Recaptcha V2 Invisible
 
 A minimal playground for **reCAPTCHA v2 Invisible**: React (Vite) frontend and Node (Express) backend, with server-side token verification.
 
